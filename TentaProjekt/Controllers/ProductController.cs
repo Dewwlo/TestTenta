@@ -46,6 +46,12 @@ namespace TentaProjekt.Controllers
         // GET: Product/Create
         public IActionResult Create()
         {
+            var categoryList = new List<SelectListItem>()
+            {
+            
+            };
+            ViewBag.categoryList = categoryList;
+
             return View();
         }
 
@@ -56,6 +62,12 @@ namespace TentaProjekt.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,Name,Price")] Product product)
         {
+            var categoryList = new List<SelectListItem>()
+            {
+
+            };
+            ViewBag.categoryList = categoryList;
+
             if (ModelState.IsValid)
             {
                 _context.Add(product);
@@ -68,6 +80,12 @@ namespace TentaProjekt.Controllers
         // GET: Product/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var categoryList = new List<SelectListItem>()
+            {
+
+            };
+            ViewBag.categoryList = categoryList;
+
             if (id == null)
             {
                 return NotFound();
@@ -88,6 +106,13 @@ namespace TentaProjekt.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,Price")] Product product)
         {
+            var categoryList = new List<SelectListItem>()
+            {
+
+            };
+            ViewBag.categoryList = categoryList;
+
+
             if (id != product.ProductId)
             {
                 return NotFound();
