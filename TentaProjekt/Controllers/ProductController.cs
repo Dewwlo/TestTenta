@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using TentaProjekt.Data;
 using TentaProjekt.Models;
 
@@ -13,16 +14,19 @@ namespace TentaProjekt.Controllers
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<Product> _logger;
 
-        public ProductController(ApplicationDbContext context)
+        public ProductController(ApplicationDbContext context, ILogger<Product> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: Product
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products.ToListAsync());
+           _logger.LogWarning("With great powers comes great responsibilities");
+           return View(await _context.Products.ToListAsync());
         }
 
         // GET: Product/Details/5
