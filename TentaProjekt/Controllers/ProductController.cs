@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using TentaProjekt.Data;
 using TentaProjekt.Models;
+using TentaProjekt.Services;
 
 namespace TentaProjekt.Controllers
 {
@@ -15,11 +16,13 @@ namespace TentaProjekt.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<Product> _logger;
+        private readonly ProductCategoryService _productCategoryService;
 
-        public ProductController(ApplicationDbContext context, ILogger<Product> logger)
+        public ProductController(ApplicationDbContext context, ILogger<Product> logger, ProductCategoryService categoryService)
         {
             _context = context;
             _logger = logger;
+            _productCategoryService = categoryService;
         }
 
         // GET: Product
@@ -50,13 +53,7 @@ namespace TentaProjekt.Controllers
         // GET: Product/Create
         public IActionResult Create()
         {
-            var categoryList = new List<SelectListItem>()
-            {
-                new SelectListItem {Value = "1", Text = "TV"},
-                new SelectListItem {Value = "2", Text = "DVD"},
-                new SelectListItem {Value = "3", Text = "VHS"}
-            };
-            ViewBag.categoryList = categoryList;
+            ViewBag.categoryList = _productCategoryService.GetSelectList();
 
             return View();
         }
@@ -68,13 +65,7 @@ namespace TentaProjekt.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,Name,Price")] Product product)
         {
-            var categoryList = new List<SelectListItem>()
-            {
-                new SelectListItem {Value = "1", Text = "TV"},
-                new SelectListItem {Value = "2", Text = "DVD"},
-                new SelectListItem {Value = "3", Text = "VHS"}
-            };
-            ViewBag.categoryList = categoryList;
+            ViewBag.categoryList = _productCategoryService.GetSelectList();
 
             if (ModelState.IsValid)
             {
@@ -88,13 +79,7 @@ namespace TentaProjekt.Controllers
         // GET: Product/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            var categoryList = new List<SelectListItem>()
-            {
-                new SelectListItem {Value = "1", Text = "TV"},
-                new SelectListItem {Value = "2", Text = "DVD"},
-                new SelectListItem {Value = "3", Text = "VHS"}
-            };
-            ViewBag.categoryList = categoryList;
+            ViewBag.categoryList = _productCategoryService.GetSelectList();
 
             if (id == null)
             {
@@ -116,14 +101,7 @@ namespace TentaProjekt.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,Price")] Product product)
         {
-            var categoryList = new List<SelectListItem>()
-            {
-                new SelectListItem {Value = "1", Text = "TV"},
-                new SelectListItem {Value = "2", Text = "DVD"},
-                new SelectListItem {Value = "3", Text = "VHS"}
-            };
-            ViewBag.categoryList = categoryList;
-
+            ViewBag.categoryList = _productCategoryService.GetSelectList();
 
             if (id != product.ProductId)
             {
