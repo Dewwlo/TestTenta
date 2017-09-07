@@ -46,9 +46,9 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2017 - TentaProjekt</p>
-        </footer>
+        @{
+            Html.RenderPartial("_FooterPartial");
+        }
     </div>
 
     <environment include="Development">
