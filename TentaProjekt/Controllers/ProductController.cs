@@ -40,7 +40,7 @@ namespace TentaProjekt.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var product = await _context.Products.Include(pc => pc.ProductCategory)
                 .SingleOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
@@ -62,13 +62,13 @@ namespace TentaProjekt.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,Name,Price")] Product product)
+        public async Task<IActionResult> Create([Bind("ProductId,Name,Price")] Product product, int prodId)
         {
             ViewBag.categoryList = _productCategoryService.GetSelectList();
 
             if (ModelState.IsValid)
             {
+                product.ProductCategory = _context.ProductCategories.FirstOrDefault(pc => pc.ProductCategoryId == prodId);
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,7 +86,7 @@ namespace TentaProjekt.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products.SingleOrDefaultAsync(m => m.ProductId == id);
+            var product = await _context.Products.Include(pc => pc.ProductCategory).SingleOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
                 return NotFound();
@@ -98,8 +98,7 @@ namespace TentaProjekt.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,Price")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,Price")] Product product, int prodId)
         {
             ViewBag.categoryList = _productCategoryService.GetSelectList();
 
@@ -112,6 +111,7 @@ namespace TentaProjekt.Controllers
             {
                 try
                 {
+                    product.ProductCategory = _context.ProductCategories.FirstOrDefault(pc => pc.ProductCategoryId == prodId);
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
@@ -151,7 +151,6 @@ namespace TentaProjekt.Controllers
 
         // POST: Product/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var product = await _context.Products.SingleOrDefaultAsync(m => m.ProductId == id);
