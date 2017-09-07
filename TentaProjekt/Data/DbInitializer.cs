@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace TentaProjekt.Data
 {
-    public class DbInitializer
+    public static class DbInitializer
     {
-        public void Initialize(ApplicationDbContext context)
+        public static void Initialize(ApplicationDbContext context)
         {
                
         }

@@ -45,7 +45,7 @@ namespace TentaProjekt
         public void Configure(
             IApplicationBuilder app, 
             IHostingEnvironment env, 
-            RoleManager<ApplicationUser> roleManager,
+            RoleManager<IdentityRole> roleManager,
             ApplicationDbContext context)
         {
             if (env.IsDevelopment())
@@ -70,7 +70,7 @@ namespace TentaProjekt
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            DbInitializer.Initialize(context, roleManager);
+            DbInitializer.Initialize(context);
         }
     }
 }
