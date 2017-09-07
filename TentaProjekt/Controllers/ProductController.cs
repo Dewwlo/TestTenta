@@ -48,7 +48,9 @@ namespace TentaProjekt.Controllers
         {
             var categoryList = new List<SelectListItem>()
             {
-            
+                new SelectListItem {Value = "1", Text = "TV"},
+                new SelectListItem {Value = "2", Text = "DVD"},
+                new SelectListItem {Value = "3", Text = "VHS"}
             };
             ViewBag.categoryList = categoryList;
 
@@ -64,7 +66,9 @@ namespace TentaProjekt.Controllers
         {
             var categoryList = new List<SelectListItem>()
             {
-
+                new SelectListItem {Value = "1", Text = "TV"},
+                new SelectListItem {Value = "2", Text = "DVD"},
+                new SelectListItem {Value = "3", Text = "VHS"}
             };
             ViewBag.categoryList = categoryList;
 
@@ -82,7 +86,9 @@ namespace TentaProjekt.Controllers
         {
             var categoryList = new List<SelectListItem>()
             {
-
+                new SelectListItem {Value = "1", Text = "TV"},
+                new SelectListItem {Value = "2", Text = "DVD"},
+                new SelectListItem {Value = "3", Text = "VHS"}
             };
             ViewBag.categoryList = categoryList;
 
@@ -108,7 +114,9 @@ namespace TentaProjekt.Controllers
         {
             var categoryList = new List<SelectListItem>()
             {
-
+                new SelectListItem {Value = "1", Text = "TV"},
+                new SelectListItem {Value = "2", Text = "DVD"},
+                new SelectListItem {Value = "3", Text = "VHS"}
             };
             ViewBag.categoryList = categoryList;
 
